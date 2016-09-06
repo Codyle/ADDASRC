@@ -277,13 +277,13 @@ enum incpol {
 #define TAB_RMAX     10
 
 enum beam { // beam types
-	B_BESSEL, //bessel beam
 	B_BARTON5, // 5th order description of the Gaussian beam
 	B_DAVIS3,  // 3rd order description of the Gaussian beam
 	B_DIPOLE,  // field of a point dipole
 	B_LMINUS,  // 1st order description of the Gaussian beam
 	B_PLANE,   // infinite plane wave
-	B_READ     // read from file
+	B_READ,     // read from file
+	B_BESSEL
 	/* TO ADD NEW BEAM
 	 * add an identifier starting with 'B_' and a descriptive comment to this list in alphabetical order.
 	 */

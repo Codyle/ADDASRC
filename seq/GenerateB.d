@@ -34,8 +34,7 @@ GenerateB.o: ../GenerateB.c /usr/include/stdc-predef.h ../const.h \
  /usr/include/i386-linux-gnu/bits/stdio_lim.h \
  /usr/include/i386-linux-gnu/bits/sys_errlist.h \
  /usr/include/i386-linux-gnu/bits/stdio.h \
- /usr/include/i386-linux-gnu/bits/stdio2.h ../memory.h ../io.h \
- ../interaction.h ../param.h \
- /usr/lib/gcc/i686-linux-gnu/4.8/include-fixed/limits.h \
+ /usr/include/i386-linux-gnu/bits/stdio2.h ../io.h ../interaction.h \
+ ../param.h /usr/lib/gcc/i686-linux-gnu/4.8/include-fixed/limits.h \
  /usr/lib/gcc/i686-linux-gnu/4.8/include-fixed/syslimits.h \
  /usr/include/limits.h ../vars.h

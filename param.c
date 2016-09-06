@@ -236,9 +236,10 @@ static const struct subopt_struct beam_opt[]={
 		"files are required for Y- and X-polarizations respectively, but a single filename is sufficient if only "
 		"Y-polarization is used (e.g. due to symmetry). Incident field should be specified in a particle reference "
 		"frame in the same format as used by '-store_beam'.",FNAME_ARG_1_2,B_READ},
-	{"bessel","<besselOrder> <order> <polarization> <p>","the sphere with bessel beam incident in each polarization direction"
-		"<besselOrder> indicate the order of bessel beam,<polarization> indicate the orientation of each polarization direction",
-		"the first parameters is Natural number, and the second parameters is polarization",UNDEF,B_BESSEL},
+	{"bessel","<filenameY> [<filenameX>]","Defined by separate files, which names are given as arguments. Normally two "
+	"files are required for Y- and X-polarizations respectively, but a single filename is sufficient if only "
+	"Y-polarization is used (e.g. due to symmetry). Incident field should be specified in a particle reference "
+	"frame in the same format as used by '-store_beam'.",UNDEF,B_BESSEL},
 	/* TO ADD NEW BEAM
 	 * add a row to this list in alphabetical order. It contains: beam name (used in command line), usage string, help
 	 * string, possible number of float parameters, beam identifier (defined inside 'enum beam' in const.h). Usage and
@@ -687,7 +688,6 @@ void PrintErrorHelp(const char * restrict fmt, ... )
  */
 {
 	va_list args;
-
 	const char * restrict optname,* restrict use;
 	char msg[MAX_MESSAGE]="ERROR: ";
 	int shift,tmp;
@@ -980,7 +980,7 @@ PARSE_FUNC(beam)
 			case B_LMINUS:
 			case B_DAVIS3:
 			case B_BARTON5: if (Narg!=1 && Narg!=4) NargError(Narg,"1 or 4"); break;
-			case B_BESSEL:
+			case B_BESSEL: 
 				break;
 			default: TestNarg(Narg,need); break;
 		}

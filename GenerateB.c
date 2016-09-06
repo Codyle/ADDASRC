@@ -29,7 +29,6 @@
 // project headers
 #include "cmplx.h"
 #include "comm.h"
- #include "memory.h"
 #include "io.h"
 #include "interaction.h"
 #include "param.h"
@@ -71,11 +70,6 @@ static double scale_x,scale_z; // multipliers for scaling coordinates
 static doublecomplex ki,kt;    // abs of normal components of k_inc/k0, and ktran/k0
 static doublecomplex ktVec[3]; // k_tran/k0
 static double p0;              // amplitude of the incident dipole moment
-
-//local variables added by qst for bessel
-static 
-
-
 /* TO ADD NEW BEAM
  * Add here all internal variables (beam parameters), which you initialize in InitBeam() and use in GenerateB()
  * afterwards. If you need local, intermediate variables, put them into the beginning of the corresponding function.
@@ -99,9 +93,6 @@ void InitBeam(void)
 		case B_PLANE:
 			if (IFROOT) strcpy(beam_descr,"plane wave");
 			beam_asym=false;
-			//test
-			
-			//test
 			if (surface) {
 				if (prop_0[2]==0) PrintError("Ambiguous setting of beam propagating along the surface. Please specify "
 					"the incident direction to have (arbitrary) small positive or negative z-component");
@@ -206,9 +197,6 @@ void InitBeam(void)
 			// we do not define beam_asym here, because beam_center is not defined anyway
 			return;
 		case B_BESSEL:
-			//bessel beam incident
-
-			
 
 			return;
 	}
@@ -448,7 +436,7 @@ void GenerateB (const enum incpol which,   // x - or y polarized incident light
 			ReadField(fname,b);
 			return;
 		case B_BESSEL:
-
+			
 			return;
 	}
 	LogError(ONE_POS,"Unknown type of incident beam (%d)",(int)beamtype);

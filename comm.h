@@ -42,7 +42,6 @@ void SetupLocalD(void);
 void MyBcast(void * restrict data,const var_type type,const size_t n_elem,TIME_TYPE *timing);
 void BcastOrient(int *i,int *j,int *k);
 void ReadField(const char * restrict fname,doublecomplex *restrict field);
-void CalculateBesselFunction(int * v, double * z, doublecomplex * result);
 
 #ifndef SPARSE
 void BlockTranspose(doublecomplex * restrict X,TIME_TYPE *timing);

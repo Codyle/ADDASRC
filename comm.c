@@ -54,10 +54,6 @@ extern double * restrict BT_buffer, * restrict BT_rbuffer;
 // defined and initialized in timing.c
 extern TIME_TYPE Timing_InitDmComm;
 
-// extern Fortran specfun.f
-//CJLV: bessel function by fortran
-extern CJYLV_(int *V, double *Z, doublecomplex *CBJV, doublecomplex *CDJV, doublecomplex *CBYV, doublecomplex  *CDYV);
-
 // LOCAL VARIABLES
 
 static int Ntrans;         // number of transmissions; used in CalcPartner
@@ -67,11 +63,6 @@ static unsigned char * restrict gr_comm_ob; // buffer for overlaps
 static bool * restrict gr_comm_buf;         // buffer for MPI transfers
 #endif // !SPARSE
 
-//the interface for bessel function in C
-void CalculateBesselFunction(int * v, double * z, doublecomplex * result){	
-	MALLOC_VECTOR(result, complex, 4, ONE);
-	CJYLV_(v, z, result, result+1, result+2, result+3);
-}
 
 // First several functions are defined only in parallel mode
 //======================================================================================================================
