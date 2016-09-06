@@ -34,8 +34,8 @@
 // SEMI-GLOBAL VARIABLES
 
 // used in CalculateE.c
-TIME_TYPE Timing_EPlane,Timing_EPlaneComm,    // for Eplane calculation: total and comm
-          Timing_IntField,Timing_IntFieldOne, // for internal fields: total & one calculation
+TIME_TYPE Timing_EPlane, Timing_EPlaneComm,   // for Eplane calculation: total and comm
+          Timing_IntField, Timing_IntFieldOne, // for internal fields: total & one calculation
           Timing_IncBeam,                     // for generation (or reading) and saving (if needed) of incident beam
           Timing_ScatQuan;                    // for integral scattering quantities
 size_t TotalEFieldPlane; // total number of planes for scattered field calculations
@@ -49,24 +49,24 @@ TIME_TYPE Timing_OCL_Init; // for initialization of OpenCL (including building p
 // used in comm.c
 TIME_TYPE Timing_InitDmComm; // communication time for initialization of D-matrix
 // used in crosssec.c
-	// total time for all_dir and scat_grid calculations
-TIME_TYPE Timing_EFieldAD,Timing_EFieldADComm,  // time for all_dir: total & comm
-          Timing_EFieldSG,Timing_EFieldSGComm,  // time for scat_dir: total & comm
+// total time for all_dir and scat_grid calculations
+TIME_TYPE Timing_EFieldAD, Timing_EFieldADComm, // time for all_dir: total & comm
+          Timing_EFieldSG, Timing_EFieldSGComm, // time for scat_dir: total & comm
           Timing_ScatQuanComm;                  // time for comm of scat.quantities
 // used in fft.c
 TIME_TYPE Timing_FFT_Init, // for initialization of FFT routines
           Timing_Dm_Init;  // for building Dmatrix
 // used in iterative.c
 time_t last_chp_wt; // wall time of the last checkpoint (1s precision is sufficient)
-TIME_TYPE Timing_OneIter,Timing_OneIterComm,       // for one iteration: total & comm
-          Timing_InitIter,Timing_InitIterComm,     // for initialization of iterations: total & comm
+TIME_TYPE Timing_OneIter, Timing_OneIterComm,      // for one iteration: total & comm
+          Timing_InitIter, Timing_InitIterComm,    // for initialization of iterations: total & comm
           Timing_IntFieldOneComm,                  // comm for one calculation of the internal fields
-          Timing_MVP,Timing_MVPComm,               // total & comm time for MatVec during one run of iterative solver
-          Timing_OneIterMVP,Timing_OneIterMVPComm; // total & comm time for MatVec during one iteration
+          Timing_MVP, Timing_MVPComm,              // total & comm time for MatVec during one run of iterative solver
+          Timing_OneIterMVP, Timing_OneIterMVPComm; // total & comm time for MatVec during one iteration
 size_t TotalIter;                               // total number of iterations performed
 // used in make_particle.c
 TIME_TYPE Timing_Particle,                 // for particle construction
-          Timing_Granul,Timing_GranulComm; // for granule generation: total & comm
+          Timing_Granul, Timing_GranulComm; // for granule generation: total & comm
 // used in matvec.c
 size_t TotalMatVec; // total number of matrix-vector products
 
@@ -77,7 +77,7 @@ SYSTEM_TIME wt_start; // starting wall time
 
 //======================================================================================================================
 
-double DiffSystemTime(const SYSTEM_TIME * restrict t1,const SYSTEM_TIME * restrict t2)
+double DiffSystemTime(const SYSTEM_TIME * restrict t1, const SYSTEM_TIME * restrict t2)
 /* compute difference (in seconds) between two system times; not very fast (in contrast to functions in prec_time.c/h)
  * !!! order of arguments is inverse to that in standard difftime (for historical reasons)
  */
@@ -85,11 +85,11 @@ double DiffSystemTime(const SYSTEM_TIME * restrict t1,const SYSTEM_TIME * restri
 #ifdef WINDOWS
 	LARGE_INTEGER freq;
 	QueryPerformanceFrequency(&freq);
-	return (double)(t2->QuadPart - t1->QuadPart)/(double)(freq.QuadPart);
+	return (double)(t2->QuadPart - t1->QuadPart) / (double)(freq.QuadPart);
 #elif defined(POSIX)
-	return (double)(t2->tv_sec - t1->tv_sec) + MICRO*(double)(t2->tv_usec - t1->tv_usec);
+	return (double)(t2->tv_sec - t1->tv_sec) + MICRO * (double)(t2->tv_usec - t1->tv_usec);
 #else // fallback for 1s-precision timer
-	return difftime(*t2,*t1);
+	return difftime(*t2, *t1);
 #endif
 }
 
@@ -110,12 +110,12 @@ void StartTime(void)
 void InitTiming(void)
 // init timing variables and counters
 {
-	TotalIter=TotalMatVec=TotalEval=TotalEFieldPlane=0;
-	Timing_EField=Timing_FileIO=Timing_IntField=Timing_ScatQuan=Timing_Integration=0;
-	Timing_ScatQuanComm=Timing_InitDmComm=0;
+	TotalIter = TotalMatVec = TotalEval = TotalEFieldPlane = 0;
+	Timing_EField = Timing_FileIO = Timing_IntField = Timing_ScatQuan = Timing_Integration = 0;
+	Timing_ScatQuanComm = Timing_InitDmComm = 0;
 #ifdef SPARSE
-	Timing_Dm_Init=Timing_Granul=Timing_FFT_Init=Timing_GranulComm=0;
-#endif	
+	Timing_Dm_Init = Timing_Granul = Timing_FFT_Init = Timing_GranulComm = 0;
+#endif
 }
 
 //======================================================================================================================
@@ -126,7 +126,6 @@ void FinalStatistics(void)
 	SYSTEM_TIME wt_end;
 	double totTime;
 	TIME_TYPE Timing_TotalTime;
-
 	// wait for all processes to show correct execution time
 	Synchronize();
 	if (IFROOT) {
@@ -135,139 +134,138 @@ void FinalStatistics(void)
 		GET_SYSTEM_TIME(&wt_end);
 		// log statistics
 		fprintf(logfile,
-			"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-			"                Timing Results             \n"
-			"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		        "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+		        "                Timing Results             \n"
+		        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		if (!prognosis) {
 			if (orient_avg) fprintf(logfile,
-				"Total number of single particle evaluations: %zu\n",TotalEval);
+				                        "Total number of single particle evaluations: %zu\n", TotalEval);
 			fprintf(logfile,
-				"Total number of iterations: %zu\n"
-				"Total number of matrix-vector products: %zu\n"
-				"Total planes of E field calculation (each %d points): %zu\n\n",
-				TotalIter,TotalMatVec,nTheta,TotalEFieldPlane);
+			        "Total number of iterations: %zu\n"
+			        "Total number of matrix-vector products: %zu\n"
+			        "Total planes of E field calculation (each %d points): %zu\n\n",
+			        TotalIter, TotalMatVec, nTheta, TotalEFieldPlane);
 		}
 		fprintf(logfile,
-			"Total wall time:     "FFORMT"\n",totTime=DiffSystemTime(&wt_start,&wt_end));
+		        "Total wall time:     "FFORMT"\n", totTime = DiffSystemTime(&wt_start, &wt_end));
 #ifdef ADDA_MPI
 		fprintf(logfile,
-			"--Everything below is also wall times--\n"
-			"Time since MPI_Init: "FFORMT"\n",TO_SEC(Timing_TotalTime));
+		        "--Everything below is also wall times--\n"
+		        "Time since MPI_Init: "FFORMT"\n", TO_SEC(Timing_TotalTime));
 #else // standard clock
 		fprintf(logfile,
-			"--Everything below is processor times--\n");
+		        "--Everything below is processor times--\n");
 		/* Here we test for possible overflow of clock. If clock_t is only 4 bytes (e.g. long) and CLOCLS_PER_SEC = 10^6
 		 * (not 1000), the overflow is expected whenever total time is larger than 72 min.
 		 */
-		if (CLOCKS_PER_SEC*totTime > pow(256,sizeof(clock_t))-1) fprintf(logfile,
-			"--(some values are affected by timer overflow)--\n");
+		if (CLOCKS_PER_SEC * totTime > pow(256, sizeof(clock_t)) - 1) fprintf(logfile,
+			                "--(some values are affected by timer overflow)--\n");
 		fprintf(logfile,
-			"Total time:          "FFORMT"\n",TO_SEC(Timing_TotalTime));
+		        "Total time:          "FFORMT"\n", TO_SEC(Timing_TotalTime));
 #endif
 		fprintf(logfile,
-			"  Initialization time: "FFORMT"\n",TO_SEC(Timing_Init));
+		        "  Initialization time: "FFORMT"\n", TO_SEC(Timing_Init));
 		if (!prognosis) {
 #ifdef OPENCL
 			fprintf(logfile,
-				"    init OpenCL          "FFORMT"\n",TO_SEC(Timing_OCL_Init));
-
+			        "    init OpenCL          "FFORMT"\n", TO_SEC(Timing_OCL_Init));
 #endif
 			fprintf(logfile,
-				"    init interaction     "FFORMT"\n",TO_SEC(Timing_Init_Int));
+			        "    init interaction     "FFORMT"\n", TO_SEC(Timing_Init_Int));
 #ifndef SPARSE
 			fprintf(logfile,
-				"    init Dmatrix         "FFORMT"\n",TO_SEC(Timing_Dm_Init));
+			        "    init Dmatrix         "FFORMT"\n", TO_SEC(Timing_Dm_Init));
 #	ifdef PARALLEL
 			fprintf(logfile,
-				"      communication:       "FFORMT"\n",TO_SEC(Timing_InitDmComm));
+			        "      communication:       "FFORMT"\n", TO_SEC(Timing_InitDmComm));
 #	endif
 			fprintf(logfile,
-				"    FFT setup:           "FFORMT"\n",TO_SEC(Timing_FFT_Init));
+			        "    FFT setup:           "FFORMT"\n", TO_SEC(Timing_FFT_Init));
 #endif // !SPARSE
 		}
 		fprintf(logfile,
-			"    make particle:       "FFORMT"\n",TO_SEC(Timing_Particle));
+		        "    make particle:       "FFORMT"\n", TO_SEC(Timing_Particle));
 		if (sh_granul) {
 			fprintf(logfile,
-				"      granule generator:   "FFORMT"\n",TO_SEC(Timing_Granul));
+			        "      granule generator:   "FFORMT"\n", TO_SEC(Timing_Granul));
 #ifdef PARALLEL
 			fprintf(logfile,
-				"        communication:       "FFORMT"\n",TO_SEC(Timing_GranulComm));
+			        "        communication:       "FFORMT"\n", TO_SEC(Timing_GranulComm));
 #endif
 		}
 		if (!prognosis) {
 			fprintf(logfile,
-				"  Internal fields:     "FFORMT"\n"
-				"    one solution:        "FFORMT"\n",
-				TO_SEC(Timing_IntField),TO_SEC(Timing_IntFieldOne));
+			        "  Internal fields:     "FFORMT"\n"
+			        "    one solution:        "FFORMT"\n",
+			        TO_SEC(Timing_IntField), TO_SEC(Timing_IntFieldOne));
 #ifdef PARALLEL
 			fprintf(logfile,
-				"      communication:       "FFORMT"\n",TO_SEC(Timing_IntFieldOneComm));
+			        "      communication:       "FFORMT"\n", TO_SEC(Timing_IntFieldOneComm));
 #endif
 			fprintf(logfile,
-				"      matvec products:     "FFORMT"\n",TO_SEC(Timing_MVP));
+			        "      matvec products:     "FFORMT"\n", TO_SEC(Timing_MVP));
 #ifdef PARALLEL
 			fprintf(logfile,
-				"        communication:       "FFORMT"\n",TO_SEC(Timing_MVPComm));
+			        "        communication:       "FFORMT"\n", TO_SEC(Timing_MVPComm));
 #endif
 			fprintf(logfile,
-				"      incident beam:       "FFORMT"\n",TO_SEC(Timing_IncBeam));
+			        "      incident beam:       "FFORMT"\n", TO_SEC(Timing_IncBeam));
 			fprintf(logfile,
-				"      init solver:         "FFORMT"\n",TO_SEC(Timing_InitIter));
+			        "      init solver:         "FFORMT"\n", TO_SEC(Timing_InitIter));
 #ifdef PARALLEL
 			fprintf(logfile,
-				"        communication:       "FFORMT"\n",TO_SEC(Timing_InitIterComm));
+			        "        communication:       "FFORMT"\n", TO_SEC(Timing_InitIterComm));
 #endif
 			fprintf(logfile,
-				"      one iteration:       "FFORMT"\n",TO_SEC(Timing_OneIter));
+			        "      one iteration:       "FFORMT"\n", TO_SEC(Timing_OneIter));
 #ifdef PARALLEL
 			fprintf(logfile,
-				"        communication:       "FFORMT"\n",TO_SEC(Timing_OneIterComm));
+			        "        communication:       "FFORMT"\n", TO_SEC(Timing_OneIterComm));
 #endif
 			fprintf(logfile,
-				"        matvec products:     "FFORMT"\n",TO_SEC(Timing_OneIterMVP));
+			        "        matvec products:     "FFORMT"\n", TO_SEC(Timing_OneIterMVP));
 #ifdef PARALLEL
 			fprintf(logfile,
-				"          communication:       "FFORMT"\n",TO_SEC(Timing_OneIterMVPComm));
+			        "          communication:       "FFORMT"\n", TO_SEC(Timing_OneIterMVPComm));
 #endif
 			fprintf(logfile,
-				"  Scattered fields:    "FFORMT"\n",TO_SEC(Timing_EField));
+			        "  Scattered fields:    "FFORMT"\n", TO_SEC(Timing_EField));
 			if (yzplane || scat_plane) {
 				fprintf(logfile,
-					"    one plane:           "FFORMT"\n",TO_SEC(Timing_EPlane));
+				        "    one plane:           "FFORMT"\n", TO_SEC(Timing_EPlane));
 #ifdef PARALLEL
 				fprintf(logfile,
-					"      communication:       "FFORMT"\n",TO_SEC(Timing_EPlaneComm));
+				        "      communication:       "FFORMT"\n", TO_SEC(Timing_EPlaneComm));
 #endif
 			}
 			if (all_dir) {
 				fprintf(logfile,
-					"    one alldir:          "FFORMT"\n",TO_SEC(Timing_EFieldAD));
+				        "    one alldir:          "FFORMT"\n", TO_SEC(Timing_EFieldAD));
 #ifdef PARALLEL
 				fprintf(logfile,
-					"      communication:       "FFORMT"\n",TO_SEC(Timing_EFieldADComm));
+				        "      communication:       "FFORMT"\n", TO_SEC(Timing_EFieldADComm));
 #endif
 			}
 			if (scat_grid) {
 				fprintf(logfile,
-					"    one scat_grid:          "FFORMT"\n",TO_SEC(Timing_EFieldSG));
+				        "    one scat_grid:          "FFORMT"\n", TO_SEC(Timing_EFieldSG));
 #ifdef PARALLEL
 				fprintf(logfile,
-					"      communication:       "FFORMT"\n",TO_SEC(Timing_EFieldSGComm));
+				        "      communication:       "FFORMT"\n", TO_SEC(Timing_EFieldSGComm));
 #endif
 			}
-			fprintf (logfile,
-				"  Other sc.quantities: "FFORMT"\n",TO_SEC(Timing_ScatQuan));
+			fprintf(logfile,
+			        "  Other sc.quantities: "FFORMT"\n", TO_SEC(Timing_ScatQuan));
 #ifdef PARALLEL
 			fprintf(logfile,
-				"    communication:       "FFORMT"\n",TO_SEC(Timing_ScatQuanComm));
+			        "    communication:       "FFORMT"\n", TO_SEC(Timing_ScatQuanComm));
 #endif
 		}
-		fprintf (logfile,
-				"File I/O:            "FFORMT"\n",TO_SEC(Timing_FileIO));
-		if (!prognosis) fprintf (logfile,
-				"Integration:         "FFORMT"\n",TO_SEC(Timing_Integration));
+		fprintf(logfile,
+		        "File I/O:            "FFORMT"\n", TO_SEC(Timing_FileIO));
+		if (!prognosis) fprintf(logfile,
+			                        "Integration:         "FFORMT"\n", TO_SEC(Timing_Integration));
 		// close logfile
-		FCloseErr(logfile,F_LOG,ONE_POS);
+		FCloseErr(logfile, F_LOG, ONE_POS);
 	}
 }

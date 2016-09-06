@@ -36,9 +36,9 @@ void InitTime(SYSTEM_TIME * restrict t)
 // set time to zero
 {
 #ifdef WINDOWS
-	t->QuadPart=0;
+	t->QuadPart = 0;
 #elif defined(POSIX)
-	t->tv_sec=t->tv_usec=0;
+	t->tv_sec = t->tv_usec = 0;
 #endif
 }
 
@@ -49,9 +49,8 @@ void SetTimerFreq(void)
 {
 #ifdef WINDOWS
 	LARGE_INTEGER freq;
-
 	QueryPerformanceFrequency(&freq);
-	inv_freq=1/(double)freq.QuadPart;
+	inv_freq = 1 / (double)freq.QuadPart;
 #endif
 }
 
@@ -61,9 +60,9 @@ double TimerToSec(const SYSTEM_TIME * restrict t)
 // timer to seconds
 {
 #ifdef WINDOWS
-	return (inv_freq*t->QuadPart);
+	return (inv_freq * t->QuadPart);
 #elif defined(POSIX)
-	return (t->tv_sec+MICRO*t->tv_usec);
+	return (t->tv_sec + MICRO * t->tv_usec);
 #endif
 }
 

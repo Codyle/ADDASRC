@@ -40,11 +40,11 @@
 void InitTime(SYSTEM_TIME * restrict t);
 void SetTimerFreq(void);
 double TimerToSec(const SYSTEM_TIME * restrict t) ATT_PURE;
-double DiffSec(const SYSTEM_TIME * restrict t1,const SYSTEM_TIME * restrict t2) ATT_PURE;
+double DiffSec(const SYSTEM_TIME * restrict t1, const SYSTEM_TIME * restrict t2) ATT_PURE;
 
 //======================================================================================================================
 
-static inline void Elapsed(const SYSTEM_TIME * restrict t1,const SYSTEM_TIME * restrict t2,SYSTEM_TIME * restrict res)
+static inline void Elapsed(const SYSTEM_TIME * restrict t1, const SYSTEM_TIME * restrict t2, SYSTEM_TIME * restrict res)
 // compute time difference
 {
 #ifdef WINDOWS
@@ -57,8 +57,8 @@ static inline void Elapsed(const SYSTEM_TIME * restrict t1,const SYSTEM_TIME * r
 
 //======================================================================================================================
 
-static inline void ElapsedInc(const SYSTEM_TIME * restrict t1,const SYSTEM_TIME * restrict t2,
-	SYSTEM_TIME * restrict res)
+static inline void ElapsedInc(const SYSTEM_TIME * restrict t1, const SYSTEM_TIME * restrict t2,
+                              SYSTEM_TIME * restrict res)
 // compute time difference, increment result by this value
 {
 #ifdef WINDOWS

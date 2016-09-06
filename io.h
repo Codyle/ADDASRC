@@ -45,36 +45,36 @@
 
 // A way of calling snprintf and vsnprintf resistant to buffer overflows, but without errors
 #define SNPRINTF_SHIFT_ROBUST(shift,tmp,str,size,...) { \
-	tmp=snprintf(str+shift,size-shift,__VA_ARGS__); \
-	if (tmp>0) { shift+=tmp; if (shift>=size) shift=size-1; } \
-}
+		tmp=snprintf(str+shift,size-shift,__VA_ARGS__); \
+		if (tmp>0) { shift+=tmp; if (shift>=size) shift=size-1; } \
+	}
 #define VSNPRINTF_SHIFT_ROBUST(shift,tmp,str,size,...) { \
-	tmp=vsnprintf(str+shift,size-shift,__VA_ARGS__); \
-	if (tmp>0) { shift+=tmp; if (shift>=size) shift=size-1; } \
-}
+		tmp=vsnprintf(str+shift,size-shift,__VA_ARGS__); \
+		if (tmp>0) { shift+=tmp; if (shift>=size) shift=size-1; } \
+	}
 
-char *dyn_sprintf(const char *format, ...) ATT_PRINTF(1,2) ATT_MALLOC;
-char *rea_sprintf(char *str,const char *format, ...) ATT_PRINTF(2,3) ATT_MALLOC;
+char *dyn_sprintf(const char *format, ...) ATT_PRINTF(1, 2) ATT_MALLOC;
+char *rea_sprintf(char *str, const char *format, ...) ATT_PRINTF(2, 3) ATT_MALLOC;
 void WrapLines(char * restrict str);
 char *WrapLinesCopy(const char * restrict str);
-void LogError(ERR_LOC_DECL,const char * restrict fmt,...) ATT_PRINTF(4,5) ATT_NORETURN;
-void LogWarning(enum ec code,ERR_LOC_DECL,const char * restrict fmt,...) ATT_PRINTF(5,6);
-size_t SnprintfErr(ERR_LOC_DECL,char * restrict str,const size_t size,const char * restrict fmt,...) ATT_PRINTF(6,7);
-size_t SnprintfShiftErr(ERR_LOC_DECL,const size_t shift,char * restrict str,const size_t size,const char * restrict fmt,
-	...) ATT_PRINTF(7,8);
-size_t VsnprintfErr(ERR_LOC_DECL,char * restrict str,const size_t size,const char * restrict fmt,va_list args);
-void PrintError(const char * restrict fmt, ... ) ATT_PRINTF(1,2) ATT_NORETURN;
+void LogError(ERR_LOC_DECL, const char * restrict fmt, ...) ATT_PRINTF(4, 5) ATT_NORETURN;
+void LogWarning(enum ec code, ERR_LOC_DECL, const char * restrict fmt, ...) ATT_PRINTF(5, 6);
+size_t SnprintfErr(ERR_LOC_DECL, char * restrict str, const size_t size, const char * restrict fmt, ...) ATT_PRINTF(6, 7);
+size_t SnprintfShiftErr(ERR_LOC_DECL, const size_t shift, char * restrict str, const size_t size, const char * restrict fmt,
+                        ...) ATT_PRINTF(7, 8);
+size_t VsnprintfErr(ERR_LOC_DECL, char * restrict str, const size_t size, const char * restrict fmt, va_list args);
+void PrintError(const char * restrict fmt, ...) ATT_PRINTF(1, 2) ATT_NORETURN;
 void LogPending(void);
-void PrintBoth(FILE * restrict file,const char * restrict fmt, ... ) ATT_PRINTF(2,3);
+void PrintBoth(FILE * restrict file, const char * restrict fmt, ...) ATT_PRINTF(2, 3);
 
-FILE *FOpenErr(const char * restrict fname,const char * restrict mode,ERR_LOC_DECL);
-void FCloseErr(FILE * restrict file,const char * restrict fname,ERR_LOC_DECL);
-void RemoveErr(const char * restrict fname,ERR_LOC_DECL);
-void MkDirErr(const char * restrict dirname,ERR_LOC_DECL);
+FILE *FOpenErr(const char * restrict fname, const char * restrict mode, ERR_LOC_DECL);
+void FCloseErr(FILE * restrict file, const char * restrict fname, ERR_LOC_DECL);
+void RemoveErr(const char * restrict fname, ERR_LOC_DECL);
+void MkDirErr(const char * restrict dirname, ERR_LOC_DECL);
 
-char *FGetsError(FILE * restrict file,const char * restrict fname,size_t *line,char * restrict buf,const int buf_size,
-	ERR_LOC_DECL);
-size_t SkipNLines(FILE * restrict file,const size_t n);
+char *FGetsError(FILE * restrict file, const char * restrict fname, size_t *line, char * restrict buf, const int buf_size,
+                 ERR_LOC_DECL);
+size_t SkipNLines(FILE * restrict file, const size_t n);
 size_t SkipComments(FILE * restrict file);
 
 #endif // __io_h

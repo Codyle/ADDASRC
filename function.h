@@ -21,13 +21,13 @@
 
 // attribute options for GCC compilers (Intel compiler may also recognize them)
 #ifdef __GNUC__
-	// sets a macro for testing GCC version (copied from _mingw.h)
+// sets a macro for testing GCC version (copied from _mingw.h)
 #	ifdef __GNUC_MINOR__
 #		define GCC_PREREQ(major,minor) GREATER_EQ2(__GNUC__,__GNUC_MINOR__,major,minor)
 #	else
 #		define GCC_PREREQ(major,minor) 0
 #	endif
-	// pragmas to ignore warnings
+// pragmas to ignore warnings
 #	if GCC_PREREQ(4,6)
 #		define DO_PRAGMA(x) _Pragma (#x)
 #		define IGNORE_WARNING(x) DO_PRAGMA(GCC diagnostic ignored #x)
@@ -37,14 +37,14 @@
 #		define IGNORE_WARNING(x)
 #		define STOP_IGNORE
 #	endif
-	// The following chooses between __printf__ and __gnu_printf__ attributes
+// The following chooses between __printf__ and __gnu_printf__ attributes
 #	if GCC_PREREQ(4,4)
-		/* for newer gcc. In particular, it removes warnings about %z in printf-type functions on Windows. Native
-		 * Windows libraries do not support this format specifier, however MinGW contains replacement functions to take
-		 * care of it. So when using MinGW, system limitations are not that relevant.
-		 * This causes certain problems with icc 12.0. It claims to support gcc 4.5 but does not recognize this format.
-		 * However, this is dealt with disabling corresponding warning in Makefile.
-		 */
+/* for newer gcc. In particular, it removes warnings about %z in printf-type functions on Windows. Native
+ * Windows libraries do not support this format specifier, however MinGW contains replacement functions to take
+ * care of it. So when using MinGW, system limitations are not that relevant.
+ * This causes certain problems with icc 12.0. It claims to support gcc 4.5 but does not recognize this format.
+ * However, this is dealt with disabling corresponding warning in Makefile.
+ */
 #		define ATT_PRINTF(a,b) __attribute__ ((__format__(__gnu_printf__,a,b)))
 #	else // for older gcc
 #		define ATT_PRINTF(a,b) __attribute__ ((__format__(__printf__,a,b)))

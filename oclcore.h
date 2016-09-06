@@ -39,17 +39,17 @@
 extern cl_context context;
 extern bool bufupload;
 extern cl_command_queue command_queue;
-extern cl_kernel clzero,clarith1,clarith2,clarith3,clarith3_surface,clarith4,clarith5,clnConj,clinprod,cltransposeof,
-	cltransposeob,cltransposeofR;
-extern cl_mem bufXmatrix,bufmaterial,bufposition,bufcc_sqrt,bufargvec,bufresultvec,bufslices,bufslices_tr,bufDmatrix,
-	bufinproduct;
+extern cl_kernel clzero, clarith1, clarith2, clarith3, clarith3_surface, clarith4, clarith5, clnConj, clinprod, cltransposeof,
+       cltransposeob, cltransposeofR;
+extern cl_mem bufXmatrix, bufmaterial, bufposition, bufcc_sqrt, bufargvec, bufresultvec, bufslices, bufslices_tr, bufDmatrix,
+       bufinproduct;
 #ifdef OCL_BLAS
-extern cl_mem buftmp,bufrvec,bufxvec;
+extern cl_mem buftmp, bufrvec, bufxvec;
 #endif
-extern cl_mem bufRmatrix,bufslicesR,bufslicesR_tr;
+extern cl_mem bufRmatrix, bufslicesR, bufslicesR_tr;
 extern double *inprodhlp;
-extern size_t oclMem,oclMemPeak,oclMemMaxObj;
-extern cl_ulong oclMemDev,oclMemDevObj;
+extern size_t oclMem, oclMemPeak, oclMemMaxObj;
+extern cl_ulong oclMemDev, oclMemDevObj;
 extern int gpuInd;
 
 /* checks error status of CL functions; can either be used as a wrapper that returns error status or applied to return
@@ -59,19 +59,19 @@ extern int gpuInd;
 #define CREATE_CL_BUFFER(buf,flags,size,ptr) buf=my_clCreateBuffer(flags,size,ptr,ALL_POS,#buf)
 void oclinit(void);
 void oclunload(void);
-void PrintCLErr(cl_int err,ERR_LOC_DECL,const char * restrict msg) ATT_NORETURN;
-cl_mem my_clCreateBuffer(cl_mem_flags mem_flags,size_t size,void *host_ptr,ERR_LOC_DECL,const char *name);
+void PrintCLErr(cl_int err, ERR_LOC_DECL, const char * restrict msg) ATT_NORETURN;
+cl_mem my_clCreateBuffer(cl_mem_flags mem_flags, size_t size, void *host_ptr, ERR_LOC_DECL, const char *name);
 void my_clReleaseBuffer(cl_mem buffer);
 
 //======================================================================================================================
 
-static inline void CheckCLErr(const cl_int err,ERR_LOC_DECL,const char * restrict msg)
+static inline void CheckCLErr(const cl_int err, ERR_LOC_DECL, const char * restrict msg)
 /* Checks error code and prints error if necessary. It is an inline wrapper, so it can be called after each CL function
  * without worrying about performance. Optional argument msg is added to the error message, if not NULL. Incorporating
  * it into the macro CL_CH_ERR is not trivial, since the argument can be a call to the function.
  */
 {
-	if (err != CL_SUCCESS) PrintCLErr(err,ERR_LOC_CALL,msg);
+	if (err != CL_SUCCESS) PrintCLErr(err, ERR_LOC_CALL, msg);
 }
 
 #endif // __oclcore_h

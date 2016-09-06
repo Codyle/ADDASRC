@@ -61,73 +61,67 @@ extern "C" {
 #include <stdio.h>
 
 // XForm type
-typedef enum 
-{
+typedef enum {
 	clFFT_Forward	= 	-1,
 	clFFT_Inverse	= 	 1
-	
-}clFFT_Direction;
+
+} clFFT_Direction;
 
 // XForm dimension
-typedef enum
-{
+typedef enum {
 	clFFT_1D	= 0,
 	clFFT_2D	= 1,
 	clFFT_3D	= 3
-	
-}clFFT_Dimension;
+
+} clFFT_Dimension;
 
 // XForm Data type
-typedef enum
-{
+typedef enum {
 	clFFT_SplitComplexFormat       = 0,
 	clFFT_InterleavedComplexFormat = 1
-}clFFT_DataFormat;
+} clFFT_DataFormat;
 
-typedef struct
-{
+typedef struct {
 	unsigned int x;
 	unsigned int y;
 	unsigned int z;
-}clFFT_Dim3;	
-	
-typedef struct
-{
+} clFFT_Dim3;
+
+typedef struct {
 	double *real;
 	double *imag;
 } clFFT_SplitComplex;
 
-typedef struct
-{
+typedef struct {
 	double real;
 	double imag;
-}clFFT_Complex;
+} clFFT_Complex;
 
-typedef void* clFFT_Plan;	
+typedef void* clFFT_Plan;
 
-clFFT_Plan clFFT_CreatePlan( cl_context context, clFFT_Dim3 n, clFFT_Dimension dim, clFFT_DataFormat dataFormat, cl_int *error_code );
+clFFT_Plan clFFT_CreatePlan(cl_context context, clFFT_Dim3 n, clFFT_Dimension dim, clFFT_DataFormat dataFormat, cl_int *error_code);
 
-void clFFT_DestroyPlan( clFFT_Plan plan );
+void clFFT_DestroyPlan(clFFT_Plan plan);
 
-cl_int clFFT_ExecuteInterleaved( cl_command_queue queue, clFFT_Plan plan, cl_int batchSize, clFFT_Direction dir, 
-								 cl_mem data_in, cl_mem data_out,
-								 cl_int num_events, cl_event *event_list, cl_event *event );
+cl_int clFFT_ExecuteInterleaved(cl_command_queue queue, clFFT_Plan plan, cl_int batchSize, clFFT_Direction dir,
+                                cl_mem data_in, cl_mem data_out,
+                                cl_int num_events, cl_event *event_list, cl_event *event);
 
-cl_int clFFT_ExecutePlannar( cl_command_queue queue, clFFT_Plan plan, cl_int batchSize, clFFT_Direction dir, 
-							 cl_mem data_in_real, cl_mem data_in_imag, cl_mem data_out_real, cl_mem data_out_imag,
-							 cl_int num_events, cl_event *event_list, cl_event *event );
+cl_int clFFT_ExecutePlannar(cl_command_queue queue, clFFT_Plan plan, cl_int batchSize, clFFT_Direction dir,
+                            cl_mem data_in_real, cl_mem data_in_imag, cl_mem data_out_real, cl_mem data_out_imag,
+                            cl_int num_events, cl_event *event_list, cl_event *event);
 
-cl_int clFFT_1DTwistInterleaved(clFFT_Plan Plan, cl_command_queue queue, cl_mem array, 
-						        size_t numRows, size_t numCols, size_t startRow, size_t rowsToProcess, clFFT_Direction dir);
-	
+cl_int clFFT_1DTwistInterleaved(clFFT_Plan Plan, cl_command_queue queue, cl_mem array,
+                                size_t numRows, size_t numCols, size_t startRow, size_t rowsToProcess, clFFT_Direction dir);
 
-cl_int clFFT_1DTwistPlannar(clFFT_Plan Plan, cl_command_queue queue, cl_mem array_real, cl_mem array_imag, 
-					        size_t numRows, size_t numCols, size_t startRow, size_t rowsToProcess, clFFT_Direction dir);
-	
-void clFFT_DumpPlan( clFFT_Plan plan, FILE *file);	
+
+cl_int clFFT_1DTwistPlannar(clFFT_Plan Plan, cl_command_queue queue, cl_mem array_real, cl_mem array_imag,
+                            size_t numRows, size_t numCols, size_t startRow, size_t rowsToProcess, clFFT_Direction dir);
+
+void clFFT_DumpPlan(clFFT_Plan plan, FILE *file);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif 
+#endif

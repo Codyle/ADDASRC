@@ -30,29 +30,29 @@
 // for conciseness
 #define OTHER_ARGUMENTS ERR_LOC_DECL,const char *name
 
-void CheckOverflow(double size,OTHER_ARGUMENTS);
-size_t MultOverflow(size_t a,size_t b,OTHER_ARGUMENTS);
+void CheckOverflow(double size, OTHER_ARGUMENTS);
+size_t MultOverflow(size_t a, size_t b, OTHER_ARGUMENTS);
 // allocate
-doublecomplex *complexVector(size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
-double **doubleMatrix(size_t rows,size_t cols,OTHER_ARGUMENTS) ATT_MALLOC;
-double *doubleVector(size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
-double *doubleVector2(size_t nl,size_t nh,OTHER_ARGUMENTS) ATT_MALLOC;
-int **intMatrix (size_t nrl,size_t nrh,size_t ncl,size_t nch,OTHER_ARGUMENTS) ATT_MALLOC;
-int *intVector(size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
-unsigned short *ushortVector(size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
-char *charVector(size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
-unsigned char *ucharVector(size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
-bool *boolVector(size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
-size_t *sizetVector(size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
-void *voidVector(size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
+doublecomplex *complexVector(size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
+double **doubleMatrix(size_t rows, size_t cols, OTHER_ARGUMENTS) ATT_MALLOC;
+double *doubleVector(size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
+double *doubleVector2(size_t nl, size_t nh, OTHER_ARGUMENTS) ATT_MALLOC;
+int **intMatrix(size_t nrl, size_t nrh, size_t ncl, size_t nch, OTHER_ARGUMENTS) ATT_MALLOC;
+int *intVector(size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
+unsigned short *ushortVector(size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
+char *charVector(size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
+unsigned char *ucharVector(size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
+bool *boolVector(size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
+size_t *sizetVector(size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
+void *voidVector(size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
 // reallocate; only two for now, more can be easily added
-double *doubleRealloc(double *ptr,const size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
-char *charRealloc(char *ptr,const size_t size,OTHER_ARGUMENTS) ATT_MALLOC;
+double *doubleRealloc(double *ptr, const size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
+char *charRealloc(char *ptr, const size_t size, OTHER_ARGUMENTS) ATT_MALLOC;
 // free
 void Free_cVector(doublecomplex * restrict v);
-void Free_dMatrix(double ** restrict m,size_t rows);
-void Free_dVector2(double * restrict v,size_t nl);
-void Free_iMatrix(int ** restrict m,size_t nrl,size_t nrh,size_t ncl);
+void Free_dMatrix(double ** restrict m, size_t rows);
+void Free_dVector2(double * restrict v, size_t nl);
+void Free_iMatrix(int ** restrict m, size_t nrl, size_t nrh, size_t ncl);
 void Free_general(void * restrict v);
 
 // macros to use for allocation and reallocation

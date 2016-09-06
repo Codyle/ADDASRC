@@ -23,9 +23,9 @@
 #define THETA 0
 #define PHI   1
 
-double Romberg1D(Parms_1D param,int size,const double * restrict data,double * restrict ss);
+double Romberg1D(Parms_1D param, int size, const double * restrict data, double * restrict ss);
 
-void Romberg2D(const Parms_1D parms_input[2],double (*func_input)(int theta,int phi,double * restrict res),
-	int dim_input, double * restrict res, const char * restrict fname);
+void Romberg2D(const Parms_1D parms_input[2], double (*func_input)(int theta, int phi, double * restrict res),
+               int dim_input, double * restrict res, const char * restrict fname);
 
 #endif // __Romberg_h

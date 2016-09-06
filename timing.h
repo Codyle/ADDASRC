@@ -52,6 +52,6 @@
 void StartTime(void);
 void InitTiming(void);
 void FinalStatistics(void);
-double DiffSystemTime(const SYSTEM_TIME * restrict t1,const SYSTEM_TIME * restrict t2);
+double DiffSystemTime(const SYSTEM_TIME * restrict t1, const SYSTEM_TIME * restrict t2);
 
 #endif // __timing_h

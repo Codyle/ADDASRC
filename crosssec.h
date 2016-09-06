@@ -21,7 +21,7 @@
 #include "const.h" // for enum definition
 #include "types.h" // for doublecomplex
 
-void CalcField(doublecomplex ebuff[static restrict 3],const double n[static restrict 3]);
+void CalcField(doublecomplex ebuff[static restrict 3], const double n[static restrict 3]);
 void InitRotation(void);
 double ExtCross(const double * restrict incPol);
 double AbsCross(void);
@@ -30,13 +30,13 @@ double ScaCross(const char *f_suf);
 void ReadAlldirParms(const char * restrict fname);
 void ReadAvgParms(const char * restrict fname);
 void ReadScatGridParms(const char * restrict fname);
-void SetScatPlane(const double ct,const double st,const double phi,double robs[static restrict 3],
-	double polPer[static restrict 3]);
+void SetScatPlane(const double ct, const double st, const double phi, double robs[static restrict 3],
+                  double polPer[static restrict 3]);
 void CalcAlldir(void);
 void CalcScatGrid(enum incpol which);
-void AsymParm_x(double *vec,const char *f_suf);
-void AsymParm_y(double *vec,const char *f_suf);
-void AsymParm_z(double *vec,const char *f_suf);
-void Frp_mat(double Finc_tot[static restrict 3],double Fsca_tot[static restrict 3],double * restrict Frp);
+void AsymParm_x(double *vec, const char *f_suf);
+void AsymParm_y(double *vec, const char *f_suf);
+void AsymParm_z(double *vec, const char *f_suf);
+void Frp_mat(double Finc_tot[static restrict 3], double Fsca_tot[static restrict 3], double * restrict Frp);
 
 #endif // __crosssec_h

@@ -29,35 +29,35 @@
 #	define UOIP ATT_UNUSED
 #endif
 
-typedef enum {uchar_type,int_type,int3_type,sizet_type,double_type,double3_type,cmplx_type,cmplx3_type} var_type;
+typedef enum {uchar_type, int_type, int3_type, sizet_type, double_type, double3_type, cmplx_type, cmplx3_type} var_type;
 
 void Stop(int) ATT_NORETURN;
 void Synchronize(void);
-double AccumulateMax(double data,double *max);
-void Accumulate(void * restrict data UOIP,const var_type type UOIP,size_t n UOIP,TIME_TYPE *timing UOIP);
-void MyInnerProduct(void * restrict data,const var_type type,size_t n,TIME_TYPE *timing);
-void InitComm(int *argc_p,char ***argv_p);
+double AccumulateMax(double data, double *max);
+void Accumulate(void * restrict data UOIP, const var_type type UOIP, size_t n UOIP, TIME_TYPE *timing UOIP);
+void MyInnerProduct(void * restrict data, const var_type type, size_t n, TIME_TYPE *timing);
+void InitComm(int *argc_p, char ***argv_p);
 void ParSetup(void);
 void SetupLocalD(void);
-void MyBcast(void * restrict data,const var_type type,const size_t n_elem,TIME_TYPE *timing);
-void BcastOrient(int *i,int *j,int *k);
-void ReadField(const char * restrict fname,doublecomplex *restrict field);
+void MyBcast(void * restrict data, const var_type type, const size_t n_elem, TIME_TYPE *timing);
+void BcastOrient(int *i, int *j, int *k);
+void ReadField(const char * restrict fname, doublecomplex *restrict field);
 
 #ifndef SPARSE
-void BlockTranspose(doublecomplex * restrict X,TIME_TYPE *timing);
-void BlockTranspose_DRm(doublecomplex * restrict X,size_t lengthY,size_t lengthZ);
+void BlockTranspose(doublecomplex * restrict X, TIME_TYPE *timing);
+void BlockTranspose_DRm(doublecomplex * restrict X, size_t lengthY, size_t lengthZ);
 // used by granule generator
-void SetGranulComm(double z0,double z1,double gdZ,int gZ,size_t gXY,size_t buf_size,int *lz0,int *lz1,int sm_gr);
-void CollectDomainGranul(unsigned char * restrict dom,size_t gXY,int lz0,int locgZ,TIME_TYPE *timing);
+void SetGranulComm(double z0, double z1, double gdZ, int gZ, size_t gXY, size_t buf_size, int *lz0, int *lz1, int sm_gr);
+void CollectDomainGranul(unsigned char * restrict dom, size_t gXY, int lz0, int locgZ, TIME_TYPE *timing);
 void FreeGranulComm(int sm_gr);
-void ExchangeFits(bool * restrict data,const size_t n,TIME_TYPE *timing);
+void ExchangeFits(bool * restrict data, const size_t n, TIME_TYPE *timing);
 #endif // !SPARSE
 
 #ifdef PARALLEL
 // these functions are defined only in parallel mode
-void CatNFiles(const char * restrict dir,const char * restrict tmpl,const char * restrict dest);
-bool ExchangePhaseShifts(doublecomplex * restrict bottom, doublecomplex * restrict top,TIME_TYPE *timing);
-void AllGather(void * restrict x_from,void * restrict x_to,var_type type,TIME_TYPE *timing);
+void CatNFiles(const char * restrict dir, const char * restrict tmpl, const char * restrict dest);
+bool ExchangePhaseShifts(doublecomplex * restrict bottom, doublecomplex * restrict top, TIME_TYPE *timing);
+void AllGather(void * restrict x_from, void * restrict x_to, var_type type, TIME_TYPE *timing);
 
 /* The advantage of using this define is that compiler may remove an unnecessary test in sequential mode. The define do
  * not include common 'if', etc. to make the structure of the code (in the main text) immediately visible.

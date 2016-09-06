@@ -29,8 +29,7 @@
  */
 typedef double complex doublecomplex;
 
-typedef struct	      // integration parameters
-{
+typedef struct {      // integration parameters
 	double eps;       // convergence criterion
 	int Jmin;         // minimal number of refinements
 	int Jmax;         // maximal number of refinements
@@ -41,16 +40,16 @@ typedef struct	      // integration parameters
 	bool periodic;    // whether integrated function is periodic
 } Parms_1D;
 
-typedef struct	 // values of angles
-{	             // !!! All angles are in degrees
+typedef struct { // values of angles
+	// !!! All angles are in degrees
 	double min;  // minimum; for convenience (not really needed)
 	double max;  // maximum; for convenience (not really needed)
 	size_t N;    // number of points
 	double * restrict val; // values of points; restrict should be minded in the code !!!
 } angle_set;
 
-typedef struct	        // integration parameters
-{	                    // !!! All angles are in degrees
+typedef struct {        // integration parameters
+	// !!! All angles are in degrees
 	enum scatgrid type; // if pairs are used or grid
 	size_t N;           // total number of pairs (grid points)
 	angle_set theta;    // values of theta

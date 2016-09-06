@@ -37,7 +37,7 @@
 
 //======================================================================================================================
 
-void DebugPrintf(ERR_LOC_DECL,const char * restrict fmt, ... )
+void DebugPrintf(ERR_LOC_DECL, const char * restrict fmt, ...)
 /* Prints anything to stdout with additional debug information
  *
  * Not thread-safe! Should not be called in parallel from multiple threads (e.g. OpenMP)
@@ -45,15 +45,14 @@ void DebugPrintf(ERR_LOC_DECL,const char * restrict fmt, ... )
 {
 	va_list args;
 	static char msg[MAX_PARAGRAPH]; // not to allocate it at every call
-
-	if (who==ALL || IFROOT) { // controls whether output should be produced
-		va_start(args,fmt);
-		VsnprintfErr(ERR_LOC_CALL,msg,MAX_PARAGRAPH,fmt,args);
+	if (who == ALL || IFROOT) { // controls whether output should be produced
+		va_start(args, fmt);
+		VsnprintfErr(ERR_LOC_CALL, msg, MAX_PARAGRAPH, fmt, args);
 #ifdef PARALLEL
-		if (who==ALL) printf("(ringID=%i) DEBUG: %s:%d: %s \n",ringid,srcfile,srcline,msg);
+		if (who == ALL) printf("(ringID=%i) DEBUG: %s:%d: %s \n", ringid, srcfile, srcline, msg);
 		else
 #endif
-		printf("DEBUG: %s:%d: %s \n",srcfile,srcline,msg);
+			printf("DEBUG: %s:%d: %s \n", srcfile, srcline, msg);
 		fflush(stdout);
 		va_end(args);
 	}
@@ -61,14 +60,13 @@ void DebugPrintf(ERR_LOC_DECL,const char * restrict fmt, ... )
 
 //======================================================================================================================
 
-void FieldPrint (doublecomplex * restrict x)
+void FieldPrint(doublecomplex * restrict x)
 /* print current field at certain dipole -- not used; left for deep debug; NOT ROBUST, since DipoleCoord is not always
  * available
  */
 {
-	int i=9810;
-
-	i*=3;
-	fprintf(logfile,"Dipole coordinates = "GFORM3V"\n",COMP3V(DipoleCoord+i));
-	fprintf(logfile,"E = "CFORM3V,REIM3V(x+i));
+	int i = 9810;
+	i *= 3;
+	fprintf(logfile, "Dipole coordinates = "GFORM3V"\n", COMP3V(DipoleCoord + i));
+	fprintf(logfile, "E = "CFORM3V, REIM3V(x + i));
 }

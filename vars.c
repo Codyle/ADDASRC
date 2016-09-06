@@ -20,7 +20,7 @@
 #include "vars.h" // corresponding header
 
 // basic variables
-int boxX,boxY,boxZ;       // sizes of box enclosing the particle
+int boxX, boxY, boxZ;     // sizes of box enclosing the particle
 size_t boxXY;             // boxX*boxY, used for indexing
 double gridspace;         // dipole size (d)
 double dipvol;            // dipole volume
@@ -36,8 +36,8 @@ enum pol PolRelation;     // type of formula for self-term (polarizability relat
 enum beam beamtype;       // type of incident beam
 
 // symmetries (in particle reference frame)
-	// symmetries of reflection relative to the planes perpendicular to x, y, and z axes
-bool symX,symY,symZ;
+// symmetries of reflection relative to the planes perpendicular to x, y, and z axes
+bool symX, symY, symZ;
 bool symR;         // symmetry of 90-degrees rotation about z axes
 
 // flags (true or false)
@@ -61,8 +61,8 @@ bool ipr_required;  /* whether inner product in MatVec will be used by iterative
 double propAlongZ;  // equal 0 for general incidence, and +-1 for incidence along the z-axis (can be used as flag)
 
 // 3D vectors (in particle reference frame)
-double prop_0[3],prop[3];     // incident direction (in laboratory and particle reference frame)
-double incPolX[3],incPolY[3]; // incident polarizations (in particle RF)
+double prop_0[3], prop[3];    // incident direction (in laboratory and particle reference frame)
+double incPolX[3], incPolY[3]; // incident polarizations (in particle RF)
 double beam_center[3];        // coordinates of the beam center
 double box_origin_unif[3];    /* coordinates of the center of the first dipole in the local computational box (after
                                  uniform distribution of non-void dipoles among all processors) */
@@ -83,7 +83,7 @@ unsigned char * restrict material;  // material: index for cc
 // iterative solver
 enum iter IterMethod; // iterative method to use
 int maxiter;          // maximum number of iterations
-	// the following two can't be declared restrict due to SwapPointers
+// the following two can't be declared restrict due to SwapPointers
 doublecomplex *xvec;  // total electric field on the dipoles
 doublecomplex *pvec;  // polarization of dipoles, also an auxiliary vector in iterative solvers
 doublecomplex * restrict Einc;    // incident field on dipoles
@@ -93,8 +93,8 @@ int nTheta;                        // number of angles in scattering profile
 double alph_deg, bet_deg, gam_deg; // Euler angles of particle orientation in degrees
 angle_set alpha_int;               // sets of angles
 scat_grid_angles angles;           // angle sets for scat_grid
-	// E calculated on a grid for many different directions (holds Eper and Epar) for two incident polarizations
-doublecomplex * restrict EgridX,* restrict EgridY;
+// E calculated on a grid for many different directions (holds Eper and Epar) for two incident polarizations
+doublecomplex * restrict EgridX, * restrict EgridY;
 
 int nprocs;                        // total number of processes
 int ringid;                        // ID of current process
@@ -102,7 +102,7 @@ int ringid;                        // ID of current process
 size_t local_Ndip;                 // number of local total dipoles
 size_t local_nvoid_Ndip;           // number of local and ...
 size_t nvoid_Ndip;                 // ... total non-void dipoles
-size_t local_nvoid_d0,local_nvoid_d1; // starting and ending non-void dipole for current processor
+size_t local_nvoid_d0, local_nvoid_d1; // starting and ending non-void dipole for current processor
 /* By defining nvoid_Ndip, local_nvoid_d0, and local_nvoid_d1 as size_t we limit the possible number of dipoles in
  * 32-bit version by 4*10^9. This can be restricting for such huge runs distributed among more than 1000 processors. But
  * we assume that using such a large number of processors implies modern cluster and hence 64-bit compilation of ADDA.
@@ -118,7 +118,7 @@ TIME_TYPE Timing_EField,      // time for calculating scattered fields
           Timing_FileIO,      // time for input and output
           Timing_Integration, // time for all integrations (with precomputed values)
           tstart_main;        // starting time of the program (after MPI_Init in parallel)
-          
+
 
 // related to a nearby surface
 bool surface;           // whether nearby surface is present
@@ -131,7 +131,7 @@ double hsub;            // height of particle center above surface
  * When msub is complex, one of this doesn't tell the complete story, since the corresponding wave is inhomogeneous,
  * given by the complex wavenumber ktVec
  */
-double prIncRefl[3],prIncTran[3];
+double prIncRefl[3], prIncTran[3];
 
 #ifndef SPARSE //These variables are exclusive to the FFT mode
 
@@ -144,19 +144,19 @@ unsigned short * restrict position;
 doublecomplex * restrict Xmatrix;
 
 // auxiliary grids and their partition over processors
-size_t gridX,gridY,gridZ; /* sizes of the 'matrix' X, size_t - to remove type conversions we assume that 'int' is enough
+size_t gridX, gridY, gridZ; /* sizes of the 'matrix' X, size_t - to remove type conversions we assume that 'int' is enough
                              for it, but this declaration is to avoid type casting in calculations */
 size_t gridYZ;            // gridY*gridZ
-size_t smallY,smallZ;     // the size of the reduced matrix X
+size_t smallY, smallZ;    // the size of the reduced matrix X
 size_t local_Nsmall;      // number of  points of expanded grid per one processor
 
-int local_z0,local_z1;    // starting and ending z for current processor
+int local_z0, local_z1;   // starting and ending z for current processor
 size_t local_Nz;          // number of z layers (based on the division of smallZ)
 int local_Nz_unif;        /* number of z layers (distance between max and min values), belonging to this processor,
                              after all non_void dipoles are uniformly distributed between all processors */
 int local_z1_coer;        // ending z, coerced to be not greater than boxZ (and not smaller than local_z0)
-	// starting, ending x for current processor and number of x layers (based on the division of smallX)
-size_t local_x0,local_x1,local_Nx;
+// starting, ending x for current processor and number of x layers (based on the division of smallX)
+size_t local_x0, local_x1, local_Nx;
 
 #else //These variables are exclusive to the sparse mode
 

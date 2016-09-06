@@ -33,7 +33,7 @@
 #	include "types.h"    // for doublecomplex
 #	define D(...) DebugPrintf(ALL_POS,__VA_ARGS__)
 #	define Dz(...) DebugPrintf(ONE_POS,__VA_ARGS__)
-void DebugPrintf(ERR_LOC_DECL,const char * restrict fmt,...) ATT_PRINTF(4,5);
+void DebugPrintf(ERR_LOC_DECL, const char * restrict fmt, ...) ATT_PRINTF(4, 5);
 void FieldPrint(doublecomplex * restrict x) ATT_UNUSED;
 #else
 #	define D(...)

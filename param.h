@@ -30,38 +30,38 @@ typedef struct {
 
 extern opt_index opt; // defined in param.c
 
-void PrintErrorHelp(const char * restrict fmt, ... ) ATT_PRINTF(1,2) ATT_NORETURN;
+void PrintErrorHelp(const char * restrict fmt, ...) ATT_PRINTF(1, 2) ATT_NORETURN;
 
 //======================================================================================================================
 
-static inline void TestPositive(const double val,const char * restrict name)
+static inline void TestPositive(const double val, const char * restrict name)
 // check if val is positive, otherwise produces error message
 {
-	if (val<=0) PrintErrorHelp("Illegal %s ("GFORMDEF"), must be positive",name,val);
+	if (val <= 0) PrintErrorHelp("Illegal %s ("GFORMDEF"), must be positive", name, val);
 }
 
 //======================================================================================================================
 
-static inline void TestNonNegative(const double val,const char * restrict name)
+static inline void TestNonNegative(const double val, const char * restrict name)
 // check if val is nonnegative, otherwise produces error message
 {
-	if (val<0) PrintErrorHelp("Illegal %s ("GFORMDEF"), must be nonnegative",name,val);
+	if (val < 0) PrintErrorHelp("Illegal %s ("GFORMDEF"), must be nonnegative", name, val);
 }
 
 //======================================================================================================================
 
-static inline void TestPositive_i(const int val,const char * restrict name)
+static inline void TestPositive_i(const int val, const char * restrict name)
 // check if val (int) is positive, otherwise produces error message
 {
-	if (val<=0) PrintErrorHelp("Illegal %s (%d), must be positive",name,val);
+	if (val <= 0) PrintErrorHelp("Illegal %s (%d), must be positive", name, val);
 }
 
 //======================================================================================================================
 
-static inline void TestNonNegative_i(const int val,const char * restrict name)
+static inline void TestNonNegative_i(const int val, const char * restrict name)
 // check if val (int) is nonnegative, otherwise produces error message
 {
-	if (val<0) PrintErrorHelp("Illegal %s (%d), must be nonnegative",name,val);
+	if (val < 0) PrintErrorHelp("Illegal %s (%d), must be nonnegative", name, val);
 }
 
 //======================================================================================================================
@@ -69,66 +69,66 @@ static inline void TestNonNegative_i(const int val,const char * restrict name)
  * interval respectively)
  */
 
-static inline void TestRangeII(const double val,const char * restrict name,const double min,const double max)
+static inline void TestRangeII(const double val, const char * restrict name, const double min, const double max)
 // check if val is in interval [min,max], otherwise produces error message
 {
-	if (val<min || val>max)
-		PrintErrorHelp("Illegal %s ("GFORMDEF"), must belong to the interval ["GFORMDEF","GFORMDEF"]",name,val,min,max);
+	if (val < min || val > max)
+		PrintErrorHelp("Illegal %s ("GFORMDEF"), must belong to the interval ["GFORMDEF","GFORMDEF"]", name, val, min, max);
 }
 
 //======================================================================================================================
 
-static inline void TestRangeNI(const double val,const char * restrict name,const double min,const double max)
+static inline void TestRangeNI(const double val, const char * restrict name, const double min, const double max)
 // checks if val is in interval (min,max], otherwise produces error message
 {
-	if (val<=min || val>max)
-		PrintErrorHelp("Illegal %s ("GFORMDEF"), must belong to the interval ("GFORMDEF","GFORMDEF"]",name,val,min,max);
+	if (val <= min || val > max)
+		PrintErrorHelp("Illegal %s ("GFORMDEF"), must belong to the interval ("GFORMDEF","GFORMDEF"]", name, val, min, max);
 }
 
 //======================================================================================================================
 
-static inline void TestRangeIN(const double val,const char * restrict name,const double min,const double max)
+static inline void TestRangeIN(const double val, const char * restrict name, const double min, const double max)
 // checks if val is in interval [min,max), otherwise produces error message
 {
-	if (val<min || val>=max)
-		PrintErrorHelp("Illegal %s ("GFORMDEF"), must belong to the interval ["GFORMDEF","GFORMDEF")",name,val,min,max);
+	if (val < min || val >= max)
+		PrintErrorHelp("Illegal %s ("GFORMDEF"), must belong to the interval ["GFORMDEF","GFORMDEF")", name, val, min, max);
 }
 
 //======================================================================================================================
 
-static inline void TestRangeNN(const double val,const char * restrict name,const double min,const double max)
+static inline void TestRangeNN(const double val, const char * restrict name, const double min, const double max)
 // checks if val is in interval (min,max), otherwise produces error message
 {
-	if (val<=min || val>=max)
-		PrintErrorHelp("Illegal %s ("GFORMDEF"), must belong to the interval ("GFORMDEF","GFORMDEF")",name,val,min,max);
+	if (val <= min || val >= max)
+		PrintErrorHelp("Illegal %s ("GFORMDEF"), must belong to the interval ("GFORMDEF","GFORMDEF")", name, val, min, max);
 }
 
 //======================================================================================================================
 
-static inline void ConvertToInteger(double val,const char * restrict name,int *res)
+static inline void ConvertToInteger(double val, const char * restrict name, int *res)
 /* converts val to res, but first checks if val is really an integer and in the bounds, otherwise produces an error
  * message
  */
 {
-	if (val != floor(val)) PrintErrorHelp("Illegal %s ("GFORMDEF"), must be an integer",name,val);
-	if (val<INT_MIN || val>INT_MAX) PrintErrorHelp("Illegal %s ("GFORMDEF"), must be inside integer bounds",name,val);
-	*res=(int)val;
+	if (val != floor(val)) PrintErrorHelp("Illegal %s ("GFORMDEF"), must be an integer", name, val);
+	if (val < INT_MIN || val > INT_MAX) PrintErrorHelp("Illegal %s ("GFORMDEF"), must be inside integer bounds", name, val);
+	*res = (int)val;
 }
 
 //======================================================================================================================
 
-static inline void TestRange_i(const int val,const char * restrict name,const int min,const int max)
+static inline void TestRange_i(const int val, const char * restrict name, const int min, const int max)
 // checks if val (int) is in interval [min,max], otherwise produces error message
 {
-	if (val<min || val>max) PrintErrorHelp("Illegal %s (%d), must belong to the interval [%d,%d]",name,val,min,max);
+	if (val < min || val > max) PrintErrorHelp("Illegal %s (%d), must belong to the interval [%d,%d]", name, val, min, max);
 }
 
 //======================================================================================================================
 
-static inline void TestGreaterThan_i(const int val,const char * restrict name,const int min)
+static inline void TestGreaterThan_i(const int val, const char * restrict name, const int min)
 // checks if val (int) is greater than min, otherwise produces error message
 {
-	if (val<=min) PrintErrorHelp("Illegal %s (%d), must be greater than %d",name,val,min);
+	if (val <= min) PrintErrorHelp("Illegal %s (%d), must be greater than %d", name, val, min);
 }
 
 #endif // __param_h
